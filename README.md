@@ -29,7 +29,7 @@ The things you'll need in order to use the app and how to install them
 ### How to use
 
 
-<img src="docs/hadith.jpg" width="200"> <img src="docs/hadith_details.jpg" width="200"> <img src="docs/quran.jpg" width="200"> <img src="docs/quran_details.jpg" width="200">
+<img src="docs/home.jpg" width="200"> <img src="docs/details.jpg" width="200">
 
 [View all screenshots](docs/all-screenshots.md)
 
