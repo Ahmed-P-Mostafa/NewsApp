@@ -19,6 +19,7 @@ download the repo as zip file or you can clone it from link below:
 https://github.com/Ahmed-P-Mostafa/NewsApp.git
 ```
 
+
 ## Prerequisites
 
 The things you'll need in order to use the app and how to install them
@@ -26,12 +27,15 @@ The things you'll need in order to use the app and how to install them
 * You need to have access to internet
 
 
+
 ### How to use
 
 
-<img src="docs/hadith.jpg" width="200"> <img src="docs/hadith_details.jpg" width="200"> <img src="docs/quran.jpg" width="200"> <img src="docs/quran_details.jpg" width="200">
+https://user-images.githubusercontent.com/61784191/124526229-73db8800-de02-11eb-8452-ad9df0799906.mp4
 
-[View all screenshots](docs/all-screenshots.md)
+
+<img src="docs/home.jpg" width="200"> <img src="docs/details.jpg" width="200">
+
 
 
 ## Built with
