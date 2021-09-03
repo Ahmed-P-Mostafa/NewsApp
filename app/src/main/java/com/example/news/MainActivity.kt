@@ -8,8 +8,10 @@ import android.view.Menu
 import android.view.MenuInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private  val TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,11 +38,6 @@ class MainActivity : AppCompatActivity() {
         
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater:MenuInflater = getMenuInflater()
-        inflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
     private fun isNetworkConnected(): Boolean {
         val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = cm.activeNetworkInfo

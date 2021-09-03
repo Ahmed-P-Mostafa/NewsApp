@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp"
+        android:background="@color/color_white">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView"
@@ -28,7 +29,7 @@
                 android:id="@+id/item_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/radio"
+                android:src="@drawable/placeholder"
                 android:scaleType="centerCrop"
                 imageURL="@{news.urlToImage}"
                 android:adjustViewBounds="true"
@@ -41,7 +42,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardView"
-            android:text="@{news.author}"
+            android:text="@{news.source.name}"
             android:textSize="18sp"
             android:textColor="@android:color/holo_blue_dark"
             android:layout_marginTop="8dp" />
@@ -71,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
+            renderData="@{news.publishedAt}"
             app:layout_constraintTop_toTopOf="@id/item_indicator"
             app:layout_constraintBottom_toBottomOf="@id/item_indicator" />
 
@@ -78,6 +80,7 @@
             android:id="@+id/item_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            renderTime="@{news.publishedAt}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/item_date"
 
