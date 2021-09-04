@@ -4,7 +4,11 @@ import android.os.Build
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
+import androidx.navigation.findNavController
+import com.example.news.newsApi.model.ArticlesItem
+import com.example.news.ui.NewsFragmentDirections
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -18,7 +22,7 @@ fun loadImage(image: ImageView, url: String?) {
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
-@BindingAdapter("renderData")
+@BindingAdapter("renderDate")
 fun renderDate(textView: TextView, dateString: String) {
     val inputFormatter: DateTimeFormatter =
         DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
@@ -38,4 +42,14 @@ fun renderTime(textView: TextView,timeString:String) {
     val simpleTimeFormatter = SimpleDateFormat("hh:mm a",Locale.ENGLISH)
     val formattedTime = simpleTimeFormatter.format(time)
     textView.setText(formattedTime)
+}
+
+@BindingAdapter("android:goToDetails")
+fun sendDataToUpdateFragment(layout: ConstraintLayout, articlesItem: ArticlesItem){
+    layout.setOnClickListener {
+        val action = NewsFragmentDirections.actionHomeFragmentToDetailsFragment(articlesItem)
+        layout.findNavController().navigate(action)
+
+    }
+
 }

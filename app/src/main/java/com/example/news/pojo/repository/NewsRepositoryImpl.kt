@@ -13,7 +13,6 @@ import javax.inject.Inject
 
 class NewsRepositoryImpl(private val webService :WebServices):NewsRepository {
     override fun getArticles(): Single<DataState<NewsResponse>> {
-        val dataState = DataState.Loading
          return webService.getArticles().map {
              DataState.Success(it)
          }

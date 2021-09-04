@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:padding="12dp"
         android:layout_margin="8dp"
-        android:background="@color/color_white">
+        android:background="@color/color_white"
+        android:goToDetails="@{news}">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView"
@@ -72,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            renderData="@{news.publishedAt}"
+            renderDate="@{news.publishedAt}"
             app:layout_constraintTop_toTopOf="@id/item_indicator"
             app:layout_constraintBottom_toBottomOf="@id/item_indicator" />
 

@@ -8,14 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.news.R
 import com.example.news.databinding.NewsItemBinding
 import com.example.news.newsApi.model.ArticlesItem
-import com.example.news.newsApi.model.NewsResponse
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_details.view.*
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class NewsAdapter(private var list: List<ArticlesItem?>?) :
@@ -38,9 +30,9 @@ class NewsAdapter(private var list: List<ArticlesItem?>?) :
         var item = list?.get(position)
 
         holder.bind(item)
-        holder.itemView.setOnClickListener {
+        /*holder.itemView.setOnClickListener {
             listener?.onItemClicked(item!!, position)
-        }
+        }*/
     }
 
     override fun getItemCount() = list?.size ?: 0
@@ -55,12 +47,12 @@ class NewsAdapter(private var list: List<ArticlesItem?>?) :
     }
 
     fun changeData(list: List<ArticlesItem?>) {
-        Log.e(TAG, "changeData: ${list.size}")
         this.list = list
         notifyDataSetChanged()
     }
 
-    interface onItemClickListener {
+    //TODO remove comments
+/*    interface onItemClickListener {
         fun onItemClicked(item: ArticlesItem, position: Int)
     }
 
@@ -68,7 +60,7 @@ class NewsAdapter(private var list: List<ArticlesItem?>?) :
 
     fun onItemClickListener(listener: onItemClickListener) {
         this.listener = listener
-    }
+    }*/
 
 
 }

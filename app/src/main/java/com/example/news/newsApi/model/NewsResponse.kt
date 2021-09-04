@@ -41,4 +41,4 @@ data class ArticlesItem(
 
 	@field:SerializedName("content")
 	val content: String? = null
-) :Serializable
+):Serializable
