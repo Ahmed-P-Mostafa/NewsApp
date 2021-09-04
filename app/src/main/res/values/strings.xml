@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">News</string>
-    <string-array name="API_KEY">f33b3f54cce14a05bc58221886980ab2</string-array>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="country_value">eg</string>
-    <string name="api_key">63b1f94dad044add871d1e319c630265</string>
 </resources>

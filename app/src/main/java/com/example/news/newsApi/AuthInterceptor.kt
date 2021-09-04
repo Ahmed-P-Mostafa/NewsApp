@@ -14,7 +14,7 @@ class AuthInterceptor @Inject constructor(private val context: Context) :Interce
         val request = chain.request()
         val originalUrl = request.url
         val modifiedUrl = originalUrl.newBuilder()
-            .addQueryParameter(API_KEY_KEY,context.resources.getString(R.string.api_key) )
+            .addQueryParameter(API_KEY_KEY,context.resources.getString(R.string.auth_api_key) )
             .addQueryParameter(COUNTRY_KEY,context.getString(R.string.country_value))
             .build()
         val modifiedRequest = request.newBuilder().url(modifiedUrl).build()

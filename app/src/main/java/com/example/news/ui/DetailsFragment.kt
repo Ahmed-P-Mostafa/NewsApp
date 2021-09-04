@@ -20,19 +20,18 @@ import com.example.news.viewModel.NewsViewModel
 private const val ARTICLE = "param1"
 
 
-class DetailsFragment : BaseFragment<FragmentDetailsBinding,NewsViewModel>() {
+class DetailsFragment : BaseFragment<FragmentDetailsBinding, NewsViewModel>() {
     private val TAG = "DetailsFragment"
 
-    private val args :DetailsFragmentArgs by navArgs()
+    private val args: DetailsFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "onViewCreated: ")
         binding.news = args.article
 
     }
 
-    override fun getLayoutId()= R.layout.fragment_details
+    override fun getLayoutId() = R.layout.fragment_details
 
     override fun initializeViewModel(): NewsViewModel {
         return ViewModelProvider(requireActivity()).get(NewsViewModel::class.java)

@@ -1,6 +1,5 @@
 package com.example.news.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -10,9 +9,8 @@ import com.example.news.databinding.NewsItemBinding
 import com.example.news.newsApi.model.ArticlesItem
 
 
-class NewsAdapter(private var list: List<ArticlesItem?>?) :
+class NewsAdapter(private var articlesList: List<ArticlesItem?>?) :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
-    private val TAG = "NewsAdapter"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -27,18 +25,15 @@ class NewsAdapter(private var list: List<ArticlesItem?>?) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var item = list?.get(position)
-
+        val item = articlesList?.get(position)
         holder.bind(item)
-        /*holder.itemView.setOnClickListener {
-            listener?.onItemClicked(item!!, position)
-        }*/
     }
 
-    override fun getItemCount() = list?.size ?: 0
+    override fun getItemCount() = articlesList?.size ?: 0
 
 
-    class ViewHolder(val viewBinding: NewsItemBinding) : RecyclerView.ViewHolder(viewBinding.root) {
+    class ViewHolder(private val viewBinding: NewsItemBinding) :
+        RecyclerView.ViewHolder(viewBinding.root) {
 
         fun bind(news: ArticlesItem?) {
             viewBinding.news = news
@@ -47,20 +42,8 @@ class NewsAdapter(private var list: List<ArticlesItem?>?) :
     }
 
     fun changeData(list: List<ArticlesItem?>) {
-        this.list = list
+        this.articlesList = list
         notifyDataSetChanged()
     }
-
-    //TODO remove comments
-/*    interface onItemClickListener {
-        fun onItemClicked(item: ArticlesItem, position: Int)
-    }
-
-    var listener: onItemClickListener? = null
-
-    fun onItemClickListener(listener: onItemClickListener) {
-        this.listener = listener
-    }*/
-
 
 }

@@ -25,48 +25,34 @@ import dagger.hilt.android.AndroidEntryPoint
 class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),
     SearchView.OnQueryTextListener {
 
+    private val STATE_KEY = "STATE"
+
 
     var adapter = NewsAdapter(null)
-    private val TAG = "SportsFragment"
+    private val TAG = "NewsFragment"
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
         val search = menu.findItem(R.id.search)
         val searchView = search.actionView as SearchView
-        searchView.queryHint = "Search by source name"
-        searchView.textAlignment = View.TEXT_ALIGNMENT_VIEW_START
-        searchView.textDirection = View.TEXT_DIRECTION_ANY_RTL
         searchView.setOnQueryTextListener(this)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(STATE_KEY, true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "onViewCreated: fragment Created")
+        if (savedInstanceState == null && viewModel.savedInstanceState) {
+            Log.d(TAG, "onViewCreated: save instance is null")
+            viewModel.getArticles()
+        }
+        setHasOptionsMenu(true)
 
         binding.newsRecycler.adapter = adapter
-
-        viewModel.getArticles()
         observe()
-
-        /*adapter.onItemClickListener(object : NewsAdapter.onItemClickListener {
-
-            override fun onItemClicked(item: ArticlesItem, position: Int) {
-
-                val ft: FragmentTransaction = parentFragmentManager.beginTransaction()
-
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                val detailsFragment = DetailsFragment()
-
-                val bundle = Bundle()
-                val article = item
-                bundle.putSerializable("Article", article)
-                detailsFragment.arguments = bundle
-                ft.replace(R.id.fragment, detailsFragment)
-                ft.addToBackStack(null)
-                ft.commit()
-            }
-
-        })*/
     }
 
     private fun observe() {
@@ -76,7 +62,6 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),
                     handleLoader(true)
                 }
                 is DataState.Success -> {
-                    Log.d(TAG, "observers: ${it.data.totalResults}")
                     handleLoader(false)
                     adapter.changeData(it.data.articles!!)
                     viewModel.articleList.value = it.data.articles
@@ -84,38 +69,20 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),
                 is DataState.Failed -> {
                     binding.noDataIv.visibility = View.VISIBLE
                     handleLoader(false)
+                    handleError(it.error)
 
-                    when (it.error) {
-                        is Failure.ServerError.AccessDenied -> showError("Server Access Denied !")
-
-                        is Failure.ServerError.NotFound -> showError("Server not fount !")
-
-                        is Failure.ServerError.ServerUnavailable -> showError("Server unavailable !")
-
-                        is Failure.NetworkConnection -> showError("No internet connection !")
-
-                        is Failure.UnknownError -> showError("Something went wrong !")
-                    }
                 }
             }
         })
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        binding.unbind()
-
-    }
-
     override fun onQueryTextSubmit(query: String?): Boolean {
-        Log.d(TAG, "onQueryTextSubmit: $query")
         if (query != null) searchInArticles(query)
         return true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        Log.d(TAG, "onQueryTextChange: $newText")
         if (newText != null) searchInArticles(newText)
 
         return true
@@ -140,9 +107,29 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),
         }
     }
 
+    private fun handleError(error: Failure) {
+        when (error) {
+            is Failure.ServerError.AccessDenied -> showError("Server Access Denied !")
+
+            is Failure.ServerError.NotFound -> showError("Server not fount !")
+
+            is Failure.ServerError.ServerUnavailable -> showError("Server unavailable !")
+
+            is Failure.NetworkConnection -> showError("No internet connection !")
+
+            is Failure.UnknownError -> showError("Something went wrong !")
+        }
+    }
+
+
     private fun showError(message: String) {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.unbind()
+
+    }
 
 }
