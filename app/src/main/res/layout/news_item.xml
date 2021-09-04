@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -9,84 +10,95 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardCornerRadius="16dp"
         android:padding="12dp"
-        android:layout_margin="8dp"
+        app:cardElevation="8dp"
         android:background="@color/color_white"
-        android:goToDetails="@{news}">
+        android:layout_margin="8dp">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardView"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp">
+            android:layout_margin="8dp"
+            android:goToDetails="@{news}">
+
+                <ImageView
+                    android:id="@+id/item_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/placeholder"
+                    android:scaleType="centerCrop"
+                    imageURL="@{news.urlToImage}"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintCircleRadius="24dp"
+                    android:background="@drawable/news_item_image_bg"/>
+
+            <TextView
+                android:id="@+id/item_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_image"
+                android:text="@{news.source.name}"
+                android:textSize="18sp"
+                android:textColor="@android:color/holo_blue_dark"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_author"
+                android:text="@{news.title}"
+                android:textSize="22sp"
+                android:textColor="@android:color/black"
+                android:paddingTop="4dp" />
 
             <ImageView
-                android:id="@+id/item_image"
-                android:layout_width="match_parent"
+                android:id="@+id/item_indicator"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/placeholder"
-                android:scaleType="centerCrop"
-                imageURL="@{news.urlToImage}"
-                android:adjustViewBounds="true"
-                android:background="@drawable/news_item_image_bg" />
-        </com.google.android.material.card.MaterialCardView>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/item_date"
+                app:layout_constraintBottom_toBottomOf="@id/item_time"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/ic_more" />
 
-        <TextView
-            android:id="@+id/item_author"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardView"
-            android:text="@{news.source.name}"
-            android:textSize="18sp"
-            android:textColor="@android:color/holo_blue_dark"
-            android:layout_marginTop="8dp" />
+            <TextView
+                android:id="@+id/item_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                renderDate="@{news.publishedAt}"
+                tools:text="30:8:2020"
+                app:layout_constraintTop_toBottomOf="@id/item_title"
+                 />
 
-        <TextView
-            android:id="@+id/item_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_author"
-            android:text="@{news.title}"
-            android:textSize="22sp"
-            android:textColor="@android:color/black"
-            android:paddingTop="4dp" />
+            <TextView
+                android:id="@+id/item_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                renderTime="@{news.publishedAt}"
+                tools:text="30:8:2020"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_date"
 
-        <ImageView
-            android:id="@+id/item_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_title"
-            android:layout_marginTop="4dp"
-            android:src="@drawable/ic_more" />
-
-        <TextView
-            android:id="@+id/item_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            renderDate="@{news.publishedAt}"
-            app:layout_constraintTop_toTopOf="@id/item_indicator"
-            app:layout_constraintBottom_toBottomOf="@id/item_indicator" />
-
-        <TextView
-            android:id="@+id/item_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            renderTime="@{news.publishedAt}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_date"
-
-            />
+                />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
 </layout>

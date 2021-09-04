@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.news.R
@@ -27,8 +26,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),
 
     private val STATE_KEY = "STATE"
 
-
-    var adapter = NewsAdapter(null)
+    var adapter = NewsAdapter()
     private val TAG = "NewsFragment"
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -63,14 +61,18 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>(),
                 }
                 is DataState.Success -> {
                     handleLoader(false)
-                    adapter.changeData(it.data.articles!!)
-                    viewModel.articleList.value = it.data.articles
+                    if (it.data.articles!=null){
+                        adapter.changeData(it.data.articles)
+                        viewModel.articleList.value = it.data.articles
+                    }else{
+                        handleError(Failure.ServerError.NotFound)
+                        binding.noDataIv.visibility = View.VISIBLE
+                    }
                 }
                 is DataState.Failed -> {
                     binding.noDataIv.visibility = View.VISIBLE
                     handleLoader(false)
                     handleError(it.error)
-
                 }
             }
         })

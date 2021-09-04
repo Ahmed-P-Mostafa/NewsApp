@@ -13,7 +13,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.DetailsFragment">
+        tools:context=".ui.DetailsFragment"
+        android:background="@color/color_white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -27,8 +28,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/placeholder"
                 imageURL="@{news.urlToImage}"
+                android:contentDescription="@string/article_image"
                 android:adjustViewBounds="true"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:id="@+id/itemAuthor"
@@ -38,7 +40,7 @@
                 app:layout_constraintTop_toBottomOf="@id/itemImage"
                 android:text="@{news.source.name}"
                 android:layout_marginTop="8dp"
-                android:textSize="13sp"
+                android:textSize="16sp"
                 android:textColor="@color/colorPrimary" />
 
             <TextView

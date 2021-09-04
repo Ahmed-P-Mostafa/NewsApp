@@ -11,7 +11,7 @@ data class NewsResponse(
 	val totalResults: Int? = null,
 
 	@field:SerializedName("articles")
-	val articles: ArrayList<ArticlesItem?>? = null,
+	val articles: ArrayList<ArticlesItem>? = null,
 
 ):BaseResponse()
 

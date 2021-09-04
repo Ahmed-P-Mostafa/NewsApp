@@ -3,13 +3,14 @@ package com.example.news.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.news.R
 import com.example.news.databinding.NewsItemBinding
 import com.example.news.newsApi.model.ArticlesItem
 
 
-class NewsAdapter(private var articlesList: List<ArticlesItem?>?) :
+class NewsAdapter(private var articlesList: List<ArticlesItem>?= emptyList()) :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,9 +42,11 @@ class NewsAdapter(private var articlesList: List<ArticlesItem?>?) :
         }
     }
 
-    fun changeData(list: List<ArticlesItem?>) {
-        this.articlesList = list
-        notifyDataSetChanged()
+    fun changeData(newList: List<ArticlesItem>) {
+        val diffUtil = NewsDiffUtils(newList,articlesList!!)
+        val results = DiffUtil.calculateDiff(diffUtil)
+        articlesList = newList
+        results.dispatchUpdatesTo(this)
     }
 
 }
