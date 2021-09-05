@@ -43,6 +43,7 @@ https://user-images.githubusercontent.com/61784191/124526229-73db8800-de02-11eb-
 * [Kotlin 1.5.10](https://kotlinlang.org/) - The programming languages used
 * MVVM - Design Pattern
 * Retrofit
-* View Pager
+* RxJava
 * LiveData
+* Navigation Component
 * Picasso - image downloading library
